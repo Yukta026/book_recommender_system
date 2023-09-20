@@ -2,7 +2,8 @@ from flask import Flask,render_template,request
 import pickle
 import numpy as np
 
-popular_df = pickle.load(open('templates/popular.pkl','rb'))
+
+popular_df = pickle.load(open('templates/new_more_popular.pkl','rb'))
 pt = pickle.load(open('pt.pkl','rb'))
 books = pickle.load(open('books.pkl','rb'))
 similarity_scores = pickle.load(open('similarity_scores.pkl','rb'))
@@ -18,10 +19,18 @@ def index():
                            votes=list(popular_df['num_ratings'].values),
                            rating=list(popular_df['avg_ratings'].values)
                            )
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/book-recommender-system')
+def code():
+    return render_template('book-recommender-system.html')
 
 @app.route('/recommend')
 def recommend_ui():
     return render_template('recommend.html')
+
 
 
 @app.route('/recommend_books',methods=['post'])
@@ -43,5 +52,7 @@ def recommend():
 
     return render_template('recommend.html',data=data)
 
+
 if __name__ == '__main__':
     app.run(debug=True)
+

@@ -14,18 +14,19 @@
 <body style="background-color:black">
 
  <nav class="navbar" style="background-color:#00a65a">
-     <a class="navbar-brand">My Book Recommender</a>
+     <a class="navbar-brand" style="color:#000000;">My Book Recommender</a>
      <ul class="nav navbar-nav">
-         <li><a href="/">Home</a></li>
-         <li><a href="/recommend">Recommend</a></li>
-         <li><a>Contact</a></li>
+         <li><a href="/" style="color:#FFFFFF;">Home</a></li>
+         <li><a href="/recommend" style="color:#FFFFFF;">Recommend</a></li>
+         <li><a href="/about" style="color:#FFFFFF;">About</a></li>
+         <li><a href="/book-recommender-system" style="color:#FFFFFF;">Code</a></li>
      </ul>
  </nav>
 
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-white" style="font-size:50px">Top 50 books</h1>
+            <h1 class="text-white" style="font-size:50px">Top 20 books</h1>
         </div>
 
         {% for i in range(book_name|length) %}
@@ -37,7 +38,7 @@
                       <p class="text-white">{{  book_name[i] }}</p>
                       <h4 class="text-white">{{  author[i] }}</h4>
                       <h4 class="text-white">Votes - {{  votes[i] }}</h4>
-                      <h4 class="text-white">Rating - {{  rating[i] }}</h4>
+<!--                      <h4 class="text-white">Rating - {{  rating[i] }}</h4>-->
                   </div>
                 </div>
             </div>

@@ -14,11 +14,12 @@
 <body style="background-color:black">
 
  <nav class="navbar" style="background-color:#00a65a">
-     <a class="navbar-brand">My Book Recommender</a>
+     <a class="navbar-brand" style="color:#000000;">My Book Recommender</a>
      <ul class="nav navbar-nav">
-         <li><a href="/">Home</a></li>
-         <li><a href="/recommend">Recommend</a></li>
-         <li><a>Contact</a></li>
+         <li><a href="/" style="color:#FFFFFF;">Home</a></li>
+         <li><a href="/recommend" style="color:#FFFFFF;">Recommend</a></li>
+         <li><a href="/about" style="color:#FFFFFF;">About</a></li>
+         <li><a href="/book-recommender-system" style="color:#FFFFFF;">Code</a></li>
      </ul>
  </nav>
 
@@ -27,7 +28,7 @@
         <div class="col-md-12">
             <h1 class="text-white" style="font-size:50px">Recommend Books</h1>
             <form action="/recommend_books" method="post">
-                <input name="user_input" type="text" class="form-control"><br>
+                <input name="user_input" type="text" class="form-control" placeholder="Type name of a book e.g. Midnight"><br>
                 <input type="submit" class="btn btn-lg btn-warning">
             </form>
         </div>
