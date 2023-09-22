@@ -1,23 +1,40 @@
 from flask import Flask,render_template,request
+import os
 import pickle
+import joblib
 import numpy as np
+import pandas as pd
+import logging
 
+app = Flask(__name__)
 
-popular_df = pickle.load(open('templates/popular.pkl','rb'))
-pt = pickle.load(open('pt.pkl','rb'))
-books = pickle.load(open('books.pkl','rb'))
-similarity_scores = pickle.load(open('similarity_scores.pkl','rb'))
+popular_path = os.path.join(os.path.dirname(__file__), 'popular.pkl')
+pt_path = os.path.join(os.path.dirname(__file__), 'pt.pkl')
+books_path = os.path.join(os.path.dirname(__file__), 'books.pkl')
+similarity_scores_path = os.path.join(os.path.dirname(__file__), 'similarity_scores.pkl')
+
+with open(popular_path, 'rb') as file:
+    popular = pickle.load(file)
+
+with open(pt_path, 'rb') as file:
+    pt = pickle.load(file)
+
+with open(books_path, 'rb') as file:
+    books = pickle.load(file)
+
+with open(similarity_scores_path, 'rb') as file:
+    similarity_scores = pickle.load(file)
 
 app =Flask(__name__)
 
 @app.route('/')
 def index():
     return render_template('index.html',
-                           book_name = list(popular_df['Book-Title'].values),
-                           author=list(popular_df['Book-Author'].values),
-                           image=list(popular_df['Image-URL-M'].values),
-                           votes=list(popular_df['num_ratings'].values),
-                           rating=list(popular_df['avg_ratings'].values)
+                           book_name = list(popular['Book-Title'].values),
+                           author=list(popular['Book-Author'].values),
+                           image=list(popular['Image-URL-M'].values),
+                           votes=list(popular['num_ratings'].values),
+                           rating=list(popular['avg_ratings'].values)
                            )
 @app.route('/about')
 def about():
