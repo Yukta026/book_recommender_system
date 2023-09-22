@@ -8,30 +8,28 @@ import logging
 
 app = Flask(__name__)
 
-logging.basicConfig(filename='app.log', level=logging.DEBUG)
+log_dir = os.path.join(os.path.dirname(__file__), 'logs')
+os.makedirs(log_dir, exist_ok=True)
+log_file = os.path.join(log_dir, 'app.log')
+
+logging.basicConfig(filename=log_file, level=logging.DEBUG)
 
 try:
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    model_path = os.path.join(script_dir, 'popular.pkl')
+    popular_path = os.path.join(os.path.dirname(__file__), 'popular.pkl')
+    pt_path = os.path.join(os.path.dirname(__file__), 'pt.pkl')
+    books_path = os.path.join(os.path.dirname(__file__), 'books.pkl')
+    similarity_scores_path = os.path.join(os.path.dirname(__file__), 'similarity_scores.pkl')
 
-    with open(model_path, 'rb') as file:
-        popular = pickle.load(file)
+    with open(popular_path, 'rb') as file1, open(pt_path, 'rb') as file2, open(books_path, 'rb') as file3, open(similarity_scores_path, 'rb') as file4:
+        popular = pickle.load(file1)
+        pt = pickle.load(file2)
+        books = pickle.load(file3)
+        similarity_scores = pickle.load(file4)
+    # Define your Flask routes and use the loaded models as needed.
 except Exception as e:
-    logging.error(f"Error loading pickle file: {str(e)}")
+    logging.error(f"Error during initialization: {str(e)}")
+    raise  # Reraise the exception to trigger an application error response
 
-
-pt_path = os.path.join(os.path.dirname(__file__), 'pt.pkl')
-books_path = os.path.join(os.path.dirname(__file__), 'books.pkl')
-similarity_scores_path = os.path.join(os.path.dirname(__file__), 'similarity_scores.pkl')
-
-with open(pt_path, 'rb') as file:
-    pt = pickle.load(file)
-
-with open(books_path, 'rb') as file:
-    books = pickle.load(file)
-
-with open(similarity_scores_path, 'rb') as file:
-    similarity_scores = pickle.load(file)
 
 app =Flask(__name__)
 
