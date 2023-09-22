@@ -1,34 +1,26 @@
-from flask import Flask,render_template,request
-import os
-import pickle
-import joblib
-import numpy as np
-import pandas as pd
-import logging
+logging.basicConfig(filename='app.log', level=logging.DEBUG)
 
-app = Flask(__name__)
+# Define a function to load pickle files
+def load_pickle(file_path):
+    try:
+        with open(file_path, 'rb') as file:
+            data = pickle.load(file)
+        return data
+    except Exception as e:
+        logging.error(f"Error loading pickle file '{file_path}': {str(e)}")
+        return None
 
-log_dir = os.path.join(os.path.dirname(__file__), 'logs')
-os.makedirs(log_dir, exist_ok=True)
-log_file = os.path.join(log_dir, 'app.log')
-
-logging.basicConfig(filename=log_file, level=logging.DEBUG)
-
-try:
-    popular_path = os.path.join(os.path.dirname(__file__), 'popular.pkl')
-    pt_path = os.path.join(os.path.dirname(__file__), 'pt.pkl')
-    books_path = os.path.join(os.path.dirname(__file__), 'books.pkl')
-    similarity_scores_path = os.path.join(os.path.dirname(__file__), 'similarity_scores.pkl')
-
-    with open(popular_path, 'rb') as file1, open(pt_path, 'rb') as file2, open(books_path, 'rb') as file3, open(similarity_scores_path, 'rb') as file4:
-        popular = pickle.load(file1)
-        pt = pickle.load(file2)
-        books = pickle.load(file3)
-        similarity_scores = pickle.load(file4)
-    # Define your Flask routes and use the loaded models as needed.
-except Exception as e:
-    logging.error(f"Error during initialization: {str(e)}")
-    raise  # Reraise the exception to trigger an application error response
+# Define the paths to your pickle files
+script_dir = os.path.dirname(os.path.abspath(__file__))
+popular_path = os.path.join(script_dir, 'popular.pkl')
+pt_path = os.path.join(script_dir, 'pt.pkl')
+books_path = os.path.join(script_dir, 'books.pkl')
+similarity_scores_path = os.path.join(script_dir, 'similarity_scores.pkl')
+# Load the pickle files
+popular = load_pickle(popular_path)
+pt = load_pickle(pt_path)
+books = load_pickle(books_path)
+similarity_scores = load_pickle(similarity_scores_path)
 
 
 app =Flask(__name__)
