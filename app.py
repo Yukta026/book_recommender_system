@@ -8,13 +8,21 @@ import logging
 
 app = Flask(__name__)
 
-popular_path = os.path.join(os.path.dirname(__file__), 'popular.pkl')
+logging.basicConfig(filename='app.log', level=logging.DEBUG)
+
+try:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    model_path = os.path.join(script_dir, 'popular.pkl')
+
+    with open(model_path, 'rb') as file:
+        popular = pickle.load(file)
+except Exception as e:
+    logging.error(f"Error loading pickle file: {str(e)}")
+
+
 pt_path = os.path.join(os.path.dirname(__file__), 'pt.pkl')
 books_path = os.path.join(os.path.dirname(__file__), 'books.pkl')
 similarity_scores_path = os.path.join(os.path.dirname(__file__), 'similarity_scores.pkl')
-
-with open(popular_path, 'rb') as file:
-    popular = pickle.load(file)
 
 with open(pt_path, 'rb') as file:
     pt = pickle.load(file)
