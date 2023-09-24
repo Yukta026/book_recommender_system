@@ -29,12 +29,13 @@ except Exception as e:
     
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html',book_name=list(popular.get('Book-Title', [])),
+                           author=list(popular.get('Book-Author', [])),
+                           image=list(popular.get('Image-URL-M', [])),
+                           votes=list(popular.get('num_ratings', [])),
+                           rating=list(popular.get('avg_ratings', [])))
     
-@app.route('/about')
-def about():
-    return render_template('about.html')    
-    
+   
 if __name__ == '__main__':
     app.run(debug=True)
 
