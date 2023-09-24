@@ -35,10 +35,6 @@ def index():
 def about():
     return render_template('about.html')
 
-@app.route('/book-recommender-system')
-def code():
-    return render_template('book-recommender-system.html')
-
 @app.route('/recommend')
 def recommend_ui():
     return render_template('recommend.html')
