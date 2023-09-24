@@ -31,18 +31,6 @@ except Exception as e:
 def index():
     return render_template('index.html')
     
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-@app.route('/book-recommender-system')
-def code():
-    return render_template('book-recommender-system.html')
-
-@app.route('/recommend')
-def recommend_ui():
-    return render_template('recommend.html')
-    
 if __name__ == '__main__':
     app.run(debug=True)
 
