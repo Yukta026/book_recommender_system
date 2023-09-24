@@ -29,15 +29,19 @@ except Exception as e:
     
 @app.route('/')
 def index():
-    return render_template('index.html',
-                           book_name = list(popular['Book-Title'].values),
-                           author=list(popular['Book-Author'].values),
-                           image=list(popular['Image-URL-M'].values),
-                           votes=list(popular['num_ratings'].values),
-                           rating=list(popular['avg_ratings'].values)
-                           )
+    return render_template('index.html')
+    
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
+@app.route('/book-recommender-system')
+def code():
+    return render_template('book-recommender-system.html')
 
+@app.route('/recommend')
+def recommend_ui():
+    return render_template('recommend.html')
     
 if __name__ == '__main__':
     app.run(debug=True)
