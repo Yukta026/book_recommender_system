@@ -7,7 +7,7 @@ def load_pickle(file_path):
             data = pickle.load(file)
         return data
     except Exception as e:
-        logging.error(f"Error loading pickle file '{file_path}': {str(e)}")
+        logging.error(f"Error loading pickle file: {str(e)}")
         return None
 
 # Define the paths to your pickle files
